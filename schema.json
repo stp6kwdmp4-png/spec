@@ -1,0 +1,98 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Simple Color Palette",
+	"description": "A minimal JSON-based format for defining color palettes",
+	"$comment": "File extension: .color-palette",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"colors"
+	],
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "Optional name of the palette. If omitted, use filename without extension",
+			"minLength": 1
+		},
+		"colors": {
+			"type": "array",
+			"description": "Array of color entries",
+			"minItems": 1,
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": [
+					"components"
+				],
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Optional color name",
+						"minLength": 1
+					},
+					"components": {
+						"type": "array",
+						"description": "RGB or RGBA color components in extended linear sRGB color space",
+						"minItems": 3,
+						"maxItems": 4,
+						"items": false,
+						"prefixItems": [
+							{
+								"type": "number",
+								"title": "red",
+								"description": "Red color component (can be negative or > 1 for HDR)"
+							},
+							{
+								"type": "number",
+								"title": "green",
+								"description": "Green color component (can be negative or > 1 for HDR)"
+							},
+							{
+								"type": "number",
+								"title": "blue",
+								"description": "Blue color component (can be negative or > 1 for HDR)"
+							},
+							{
+								"type": "number",
+								"title": "opacity",
+								"description": "Opacity (defaults to 1 if omitted)",
+								"minimum": 0,
+								"maximum": 1
+							}
+						],
+						"examples": [
+							[1, 0.1274, 0.418],
+							[0.592, 0.278, 0.996, 0.9],
+							[-0.2, 1.5, 2.0, 0.5]
+						]
+					}
+				}
+			},
+			"examples": [
+				[
+					{
+						"name": "Hot Pink",
+						"components": [1, 0.1274, 0.418]
+					},
+					{
+						"components": [0.592, 0.278, 0.996, 0.9]
+					}
+				]
+			]
+		}
+	},
+	"examples": [
+		{
+			"name": "Favorites",
+			"colors": [
+				{
+					"name": "Hot Pink",
+					"components": [1, 0.1274, 0.418]
+				},
+				{
+					"components": [0.592, 0.278, 0.996, 0.9]
+				}
+			]
+		}
+	]
+}
